@@ -1,7 +1,7 @@
 from django.urls import include, path
 from . import views
 from rest_framework import routers
-
+from rest_framework_simplejwt import views as jwt_views
 from polls.views import PersonViewSet, SpeciesViewSet
 
 router = routers.DefaultRouter()
@@ -15,5 +15,9 @@ urlpatterns = [
     path('signin', views.signin, name='signin'),
     path('signout', views.signout, name='signout'),
     path('', include(router.urls)),
+    path('api/token/', jwt_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
+    path('hello/', views.HelloView.as_view(), name='hello'),
+    
 ]
 

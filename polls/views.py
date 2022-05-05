@@ -1,3 +1,4 @@
+from pyexpat import model
 from rest_framework import viewsets
 from django.contrib.auth import authenticate, login, logout
 from polls.serializers import PersonSerializer, SpeciesSerializer
@@ -11,7 +12,11 @@ from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
 from django.contrib.auth.models import User
-
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
+from rest_framework import serializers
+from rest_framework.generics import RetrieveAPIView
 
 
 class PersonViewSet(viewsets.ModelViewSet):
@@ -136,3 +141,13 @@ def signout(request):
     logout(request)
     messages.success(request, "Logged Out Successfully!!")
     return redirect('home')
+
+
+class HelloView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request):
+        content = {'message': 'Hello, World!'}
+        return Response(content)
+
+
