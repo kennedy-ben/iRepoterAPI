@@ -19,6 +19,7 @@ from rest_framework import serializers
 from rest_framework.generics import RetrieveAPIView
 
 
+
 class PersonViewSet(viewsets.ModelViewSet):
    queryset = Person.objects.all()
    serializer_class = PersonSerializer
@@ -149,5 +150,4 @@ class HelloView(APIView):
     def get(self, request):
         content = {'message': 'Hello, World!'}
         return Response(content)
-
 
